@@ -51,6 +51,8 @@ export default {
   },
   methods: {
     addItem (item) {
+      if(item.equals(''))
+        return
       this.itemList.push(item)
       this.currentItem = ''
       localStorage.setItem('rand_listOfItems', JSON.stringify(this.itemList))
@@ -79,7 +81,6 @@ export default {
       }
     },
     getRandomInt (m, paramsObj) {
-      let that = this
       // let params = {
       //   num: paramsObj.num || 1,
       //   min: paramsObj.min || 1,
