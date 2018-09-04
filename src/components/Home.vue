@@ -80,15 +80,15 @@ export default {
     },
     getRandomInt (m, paramsObj) {
       let that = this
-      let params = {
-        num: paramsObj.num || 1,
-        min: paramsObj.min || 1,
-        max: paramsObj.max || 10,
-        base: paramsObj.base || 10,
-        col: paramsObj.col || 1,
-        format: paramsObj["format"] || "plain",
-        rnd: paramsObj.rnd || "new"
-      }
+      // let params = {
+      //   num: paramsObj.num || 1,
+      //   min: paramsObj.min || 1,
+      //   max: paramsObj.max || 10,
+      //   base: paramsObj.base || 10,
+      //   col: paramsObj.col || 1,
+      //   format: paramsObj["format"] || "plain",
+      //   rnd: paramsObj.rnd || "new"
+      // }
       // let url = "https://www.random.org/sequences/?num=" + params.num +
       //   "&min=" + params.min + "&max=" + params.max + "&base=" + params.base +
       //   "&col=" + params.col + "&format=" + params.format + "&rnd=" + params.rnd
@@ -100,9 +100,9 @@ export default {
         method: "generateIntegers",
         params: {
           apiKey: "2a2d5c0b-ff8e-4b8c-b4b7-27f1e5a12132",
-          n: params.num,
-          min: params.min,
-          max: params.max,
+          n: paramsObj.num > this.itemList.length ? this.itemList.length : paramsObj.num,
+          min: paramsObj.min || 1,
+          max: paramsObj.max || 10,
           replacement: false
         },
         id: 1377
