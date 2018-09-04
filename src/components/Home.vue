@@ -75,7 +75,7 @@ export default {
       else if(this.itemList.length === 0)
         this.randomItems = []
       else {
-        this.getRandomInt('get', params)
+        this.getRandomInt('post', params)
       }
     },
     getRandomInt (m, paramsObj) {
@@ -89,13 +89,25 @@ export default {
         format: paramsObj["format"] || "plain",
         rnd: paramsObj.rnd || "new"
       }
-      let url = "https://www.random.org/integers/?num=" + params.num +
-        "&min=" + params.min + "&max=" + params.max + "&base=" + params.base +
-        "&col=" + params.col + "&format=" + params.format + "&rnd=" + params.rnd
+      // let url = "https://www.random.org/sequences/?num=" + params.num +
+      //   "&min=" + params.min + "&max=" + params.max + "&base=" + params.base +
+      //   "&col=" + params.col + "&format=" + params.format + "&rnd=" + params.rnd
+      let url = "https://api.random.org/json-rpc/1/invoke"
       let method = m.toLowerCase()
 
-      axios[method](url).then(res => {
-        let randoms = res.data.toString().replace(/\n/ig, '').split('')
+      axios[method](url, {
+        jsonrpc: "2.0",
+        method: "generateIntegers",
+        params: {
+          apiKey: "2a2d5c0b-ff8e-4b8c-b4b7-27f1e5a12132",
+          n: params.num,
+          min: params.min,
+          max: params.max,
+          replacement: false
+        },
+        id: 1377
+      }).then(res => {
+        let randoms = res.data.result.random.data //res.data.toString().replace(/\n/ig, '').split('')
         for (let i = 0; i < randoms.length; i++) {
           this.randomItems.push(this.itemList[randoms[i] - 1])
         }
