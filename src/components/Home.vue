@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
   name: 'Home',
   data () {
@@ -67,8 +69,9 @@ export default {
         this.randomItems.push(this.itemList[0])
       else if(this.itemList.length === 0)
         this.randomItems = []
-      else
+      else {
         this.getRandomInt('get', params)
+      }
     },
     getRandomInt (m, paramsObj) {
       let that = this
@@ -84,23 +87,16 @@ export default {
       let url = "https://www.random.org/integers/?num=" + params.num +
         "&min=" + params.min + "&max=" + params.max + "&base=" + params.base +
         "&col=" + params.col + "&format=" + params.format + "&rnd=" + params.rnd
-      let method = m.toUpperCase()
+      let method = m.toLowerCase()
 
-      let xhr = new XMLHttpRequest()
-      xhr.open(method, url, true)
-      xhr.send()
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState != 4) return 0
-
-        if (xhr.status != 200) {
-          console.log( xhr.status + ': ' + xhr.statusText )
-        } else {
-          let randoms = xhr.responseText.replace(/\n/ig, '').split('')
-          for (let i = 0; i < randoms.length; i++) {
-            that.randomItems.push(that.itemList[randoms[i] - 1])
-          }
+      axios[method](url).then(res => {
+        let randoms = res.data.toString().replace(/\n/ig, '').split('')
+        for (let i = 0; i < randoms.length; i++) {
+          this.randomItems.push(this.itemList[randoms[i] - 1])
         }
-      }
+      }).catch(e => {
+        console.log(e)
+      })
     }
   }
 }
@@ -115,7 +111,6 @@ export default {
     border-radius: 3px;
     list-style: none;
     margin-bottom: 5px;
-    min-width: 50px;
     margin-left: -40px;
   }
   .itemsList > ul > li:hover {
