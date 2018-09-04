@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     addItem (item) {
-      if(item === '')
+      if(item === '' || item === ' ')
         return
       this.itemList.push(item)
       this.currentItem = ''
