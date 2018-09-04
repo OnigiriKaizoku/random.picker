@@ -15,6 +15,7 @@
           <ul>
             <li v-for="(item, index ) in itemList" :key="index" @click="deleteItem(item)">{{item}}</li>
           </ul>
+          <b-button variant="danger" size="sm" @click="clearItemsList()">Clear list</b-button>
         </b-col>
         <b-col cols="2"></b-col>
         <b-col cals="3" class="randomField">
@@ -52,6 +53,10 @@ export default {
     addItem (item) {
       this.itemList.push(item)
       this.currentItem = ''
+      localStorage.setItem('rand_listOfItems', JSON.stringify(this.itemList))
+    },
+    clearItemsList() {
+      this.itemList = []
       localStorage.setItem('rand_listOfItems', JSON.stringify(this.itemList))
     },
     deleteItem (item) {
@@ -110,7 +115,7 @@ export default {
   li {
     border-radius: 3px;
     list-style: none;
-    margin-bottom: 5px;
+
     margin-left: -40px;
   }
   .itemsList > ul > li:hover {
@@ -119,7 +124,6 @@ export default {
   }
   .itemsList {
     text-align: center;
-    min-height: 100px;
     max-height: 300px;
     max-width: 300px;
     margin-top: 100px;
@@ -127,6 +131,7 @@ export default {
   .itemsList > ul {
     overflow: auto;
     max-height: 300px;
+    min-height: 100px;
   }
   .randomField {
     vertical-align: top;
