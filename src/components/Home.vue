@@ -126,10 +126,11 @@ export default {
     text-align: center;
     min-height: 100px;
     max-height: 300px;
-    min-width: 100px;
     max-width: 300px;
-    overflow: auto;
     margin-top: 100px;
+  }
+  .itemsList > ul {
+    overflow: auto;
   }
   .randomField {
     vertical-align: top;
