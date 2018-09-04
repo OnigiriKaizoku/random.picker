@@ -131,6 +131,7 @@ export default {
   }
   .itemsList > ul {
     overflow: auto;
+    max-height: 300px;
   }
   .randomField {
     vertical-align: top;
