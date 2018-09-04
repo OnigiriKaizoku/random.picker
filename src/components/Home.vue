@@ -108,8 +108,8 @@ export default {
         id: 1377
       }).then(res => {
         let randoms = res.data.result.random.data //res.data.toString().replace(/\n/ig, '').split('')
+        this.randomItems = []
         for (let i = 0; i < randoms.length; i++) {
-          this.randomItems = []
           this.randomItems.push(this.itemList[randoms[i] - 1])
         }
       }).catch(e => {
