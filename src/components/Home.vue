@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     addItem (item) {
-      if(item.equals(''))
+      if(item === '')
         return
       this.itemList.push(item)
       this.currentItem = ''
@@ -75,10 +75,9 @@ export default {
       if(this.itemList.length === 1)
         this.randomItems.push(this.itemList[0])
       else if(this.itemList.length === 0)
-        this.randomItems = []
-      else {
+        return
+      else
         this.getRandomInt('post', params)
-      }
     },
     getRandomInt (m, paramsObj) {
       // let params = {
@@ -110,6 +109,7 @@ export default {
       }).then(res => {
         let randoms = res.data.result.random.data //res.data.toString().replace(/\n/ig, '').split('')
         for (let i = 0; i < randoms.length; i++) {
+          this.randomItems = []
           this.randomItems.push(this.itemList[randoms[i] - 1])
         }
       }).catch(e => {
