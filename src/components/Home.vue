@@ -128,7 +128,7 @@ export default {
   li {
     border-radius: 3px;
     list-style: none;
-
+    -webkit-user-select: none;
     margin-left: -40px;
   }
   .itemsList > ul > li:hover {
