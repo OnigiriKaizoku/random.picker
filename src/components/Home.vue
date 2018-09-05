@@ -76,8 +76,14 @@ export default {
         this.randomItems.push(this.itemList[0])
       else if(this.itemList.length === 0)
         return
-      else
-        this.getRandomInt('post', params)
+      else {
+        this.randomItems = []
+        this.getRandomInt('post', params).then(res => {
+          for (let i = 0; i < res.length; i++) {
+            this.randomItems.push(this.itemList[res[i] - 1])
+          }
+        })
+      }
     },
     getRandomInt (m, paramsObj) {
       // let params = {
@@ -95,25 +101,24 @@ export default {
       let url = "https://api.random.org/json-rpc/1/invoke"
       let method = m.toLowerCase()
 
-      axios[method](url, {
-        jsonrpc: "2.0",
-        method: "generateIntegers",
-        params: {
-          apiKey: "2a2d5c0b-ff8e-4b8c-b4b7-27f1e5a12132",
-          n: paramsObj.num > this.itemList.length ? this.itemList.length : paramsObj.num,
-          min: paramsObj.min || 1,
-          max: paramsObj.max || 10,
-          replacement: false
-        },
-        id: 1377
-      }).then(res => {
-        let randoms = res.data.result.random.data //res.data.toString().replace(/\n/ig, '').split('')
-        this.randomItems = []
-        for (let i = 0; i < randoms.length; i++) {
-          this.randomItems.push(this.itemList[randoms[i] - 1])
-        }
-      }).catch(e => {
-        console.log(e)
+      return new Promise((resolve, reject) => {
+        axios[method](url, {
+          jsonrpc: "2.0",
+          method: "generateIntegers",
+          params: {
+            apiKey: "2a2d5c0b-ff8e-4b8c-b4b7-27f1e5a12132",
+            n: paramsObj.num > this.itemList.length ? this.itemList.length : paramsObj.num,
+            min: paramsObj.min || 1,
+            max: paramsObj.max || 10,
+            replacement: false
+          },
+          id: 1377
+        }).then(res => {
+          let randoms = res.data.result.random.data //res.data.toString().replace(/\n/ig, '').split('')
+          return resolve(randoms)
+        }).catch(e => {
+          console.log(e)
+        })
       })
     }
   }
