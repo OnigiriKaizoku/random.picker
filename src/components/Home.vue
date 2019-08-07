@@ -114,7 +114,7 @@ export default {
           },
           id: 1377
         }).then(res => {
-          let randoms = res.data.result.random.data //res.data.toString().replace(/\n/ig, '').split('')
+          let randoms = res.data.result.random.data
           return resolve(randoms)
         }).catch(e => {
           console.log(e)
@@ -125,7 +125,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .inputField {
     text-align: center;
