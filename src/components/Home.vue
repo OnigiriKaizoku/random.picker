@@ -106,7 +106,7 @@ export default {
           jsonrpc: "2.0",
           method: "generateIntegers",
           params: {
-            apiKey: "2a2d5c0b-ff8e-4b8c-b4b7-27f1e5a12132",
+            apiKey: "1bc9f5ee-f716-47d7-8b51-c628ea4a368b",
             n: paramsObj.num > this.itemList.length ? this.itemList.length : paramsObj.num,
             min: paramsObj.min || 1,
             max: paramsObj.max || 10,
