@@ -98,21 +98,25 @@ export default {
       // let url = "https://www.random.org/sequences/?num=" + params.num +
       //   "&min=" + params.min + "&max=" + params.max + "&base=" + params.base +
       //   "&col=" + params.col + "&format=" + params.format + "&rnd=" + params.rnd
-      let url = "https://api.random.org/json-rpc/1/invoke"
+      let url = 'https://api.random.org/json-rpc/2/invoke'
       let method = m.toLowerCase()
 
       return new Promise((resolve, reject) => {
         axios[method](url, {
-          jsonrpc: "2.0",
-          method: "generateIntegers",
+          jsonrpc: '2.0',
+          method: 'generateIntegers',
           params: {
-            apiKey: "1bc9f5ee-f716-47d7-8b51-c628ea4a368b",
+            apiKey: "2a2d5c0b-ff8e-4b8c-b4b7-27f1e5a12132",
             n: paramsObj.num > this.itemList.length ? this.itemList.length : paramsObj.num,
             min: paramsObj.min || 1,
             max: paramsObj.max || 10,
             replacement: false
           },
-          id: 1377
+          id: 228322
+        }, {
+          headers: {
+            'Content-type': 'application/json'
+          }
         }).then(res => {
           let randoms = res.data.result.random.data
           return resolve(randoms)
