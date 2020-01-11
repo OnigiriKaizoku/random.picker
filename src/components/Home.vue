@@ -5,6 +5,8 @@
              @keydown.enter="addItem(currentItem)"
              v-model="currentItem">
           <b-button variant="success" size="sm" @click="addItem(currentItem)">Add to list</b-button>
+          <br>
+      <p>You can choose text file with options</p><input class="file_input" type='file' @change="addFromFile($event)">
     </div>
 
     <b-container>
@@ -56,6 +58,14 @@ export default {
       this.itemList.push(item)
       this.currentItem = ''
       localStorage.setItem('rand_listOfItems', JSON.stringify(this.itemList))
+    },
+    addFromFile(event) {
+      let reader = new FileReader()
+      reader.onload = (e) => {
+        let arr = e.target.result.split("\n")
+        arr.forEach(e => this.addItem(e))
+      }
+      reader.readAsText(event.target.files[0])
     },
     clearItemsList() {
       this.itemList = []
@@ -133,6 +143,10 @@ export default {
   .inputField {
     text-align: center;
   }
+  .file_input {
+    margin-left: 7.5%;
+  }
+
   li {
     border-radius: 3px;
     list-style: none;
